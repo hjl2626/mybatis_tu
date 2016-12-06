@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.model.dao.FrontUserMapper">
+  <resultMap id="BaseResultMap" type="com.java.model.domain.FrontUser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="enabled" jdbcType="VARCHAR" property="enabled" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="user_lasttime" jdbcType="BIGINT" property="userLasttime" />
+    <result column="user_lastip" jdbcType="VARCHAR" property="userLastip" />
+    <result column="thirdparty_code" jdbcType="VARCHAR" property="thirdpartyCode" />
+    <result column="login_number" jdbcType="TINYINT" property="loginNumber" />
+    <result column="login_wrong_time" jdbcType="BIGINT" property="loginWrongTime" />
+    <result column="belonging_to" jdbcType="VARCHAR" property="belongingTo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mobile, `password`, enabled, note, user_lasttime, user_lastip, thirdparty_code, 
+    login_number, login_wrong_time, belonging_to
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_front_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_front_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.java.model.domain.FrontUser">
+    insert into t_front_user (id, mobile, `password`, 
+      enabled, note, user_lasttime, 
+      user_lastip, thirdparty_code, login_number, 
+      login_wrong_time, belonging_to)
+    values (#{id,jdbcType=BIGINT}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{enabled,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{userLasttime,jdbcType=BIGINT}, 
+      #{userLastip,jdbcType=VARCHAR}, #{thirdpartyCode,jdbcType=VARCHAR}, #{loginNumber,jdbcType=TINYINT}, 
+      #{loginWrongTime,jdbcType=BIGINT}, #{belongingTo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.java.model.domain.FrontUser">
+    insert into t_front_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="userLasttime != null">
+        user_lasttime,
+      </if>
+      <if test="userLastip != null">
+        user_lastip,
+      </if>
+      <if test="thirdpartyCode != null">
+        thirdparty_code,
+      </if>
+      <if test="loginNumber != null">
+        login_number,
+      </if>
+      <if test="loginWrongTime != null">
+        login_wrong_time,
+      </if>
+      <if test="belongingTo != null">
+        belonging_to,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="userLasttime != null">
+        #{userLasttime,jdbcType=BIGINT},
+      </if>
+      <if test="userLastip != null">
+        #{userLastip,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyCode != null">
+        #{thirdpartyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginNumber != null">
+        #{loginNumber,jdbcType=TINYINT},
+      </if>
+      <if test="loginWrongTime != null">
+        #{loginWrongTime,jdbcType=BIGINT},
+      </if>
+      <if test="belongingTo != null">
+        #{belongingTo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.java.model.domain.FrontUser">
+    update t_front_user
+    <set>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="userLasttime != null">
+        user_lasttime = #{userLasttime,jdbcType=BIGINT},
+      </if>
+      <if test="userLastip != null">
+        user_lastip = #{userLastip,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyCode != null">
+        thirdparty_code = #{thirdpartyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginNumber != null">
+        login_number = #{loginNumber,jdbcType=TINYINT},
+      </if>
+      <if test="loginWrongTime != null">
+        login_wrong_time = #{loginWrongTime,jdbcType=BIGINT},
+      </if>
+      <if test="belongingTo != null">
+        belonging_to = #{belongingTo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.java.model.domain.FrontUser">
+    update t_front_user
+    set mobile = #{mobile,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      enabled = #{enabled,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      user_lasttime = #{userLasttime,jdbcType=BIGINT},
+      user_lastip = #{userLastip,jdbcType=VARCHAR},
+      thirdparty_code = #{thirdpartyCode,jdbcType=VARCHAR},
+      login_number = #{loginNumber,jdbcType=TINYINT},
+      login_wrong_time = #{loginWrongTime,jdbcType=BIGINT},
+      belonging_to = #{belongingTo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

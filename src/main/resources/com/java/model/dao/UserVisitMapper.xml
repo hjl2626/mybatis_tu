@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.model.dao.UserVisitMapper">
+  <resultMap id="BaseResultMap" type="com.java.model.domain.UserVisit">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="visit_ip" jdbcType="VARCHAR" property="visitIp" />
+    <result column="visit_page" jdbcType="VARCHAR" property="visitPage" />
+    <result column="visit_page_desc" jdbcType="VARCHAR" property="visitPageDesc" />
+    <result column="visit_source" jdbcType="VARCHAR" property="visitSource" />
+    <result column="visit_time" jdbcType="TIMESTAMP" property="visitTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, visit_ip, visit_page, visit_page_desc, visit_source, visit_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_visit
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_user_visit
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.java.model.domain.UserVisit">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+    SELECT LAST_INSERT_ID()
+  </selectKey>
+    insert into t_user_visit (id, visit_ip, visit_page,
+      visit_page_desc, visit_source, visit_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{visitIp,jdbcType=VARCHAR}, #{visitPage,jdbcType=VARCHAR},
+      #{visitPageDesc,jdbcType=VARCHAR}, #{visitSource,jdbcType=VARCHAR}, #{visitTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.java.model.domain.UserVisit">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_user_visit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="visitIp != null">
+        visit_ip,
+      </if>
+      <if test="visitPage != null">
+        visit_page,
+      </if>
+      <if test="visitPageDesc != null">
+        visit_page_desc,
+      </if>
+      <if test="visitSource != null">
+        visit_source,
+      </if>
+      <if test="visitTime != null">
+        visit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=BIGINT},
+      <if test="visitIp != null">
+        #{visitIp,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPage != null">
+        #{visitPage,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPageDesc != null">
+        #{visitPageDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="visitSource != null">
+        #{visitSource,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null">
+        #{visitTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.java.model.domain.UserVisit">
+    update t_user_visit
+    <set>
+      <if test="visitIp != null">
+        visit_ip = #{visitIp,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPage != null">
+        visit_page = #{visitPage,jdbcType=VARCHAR},
+      </if>
+      <if test="visitPageDesc != null">
+        visit_page_desc = #{visitPageDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="visitSource != null">
+        visit_source = #{visitSource,jdbcType=VARCHAR},
+      </if>
+      <if test="visitTime != null">
+        visit_time = #{visitTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.java.model.domain.UserVisit">
+    update t_user_visit
+    set visit_ip = #{visitIp,jdbcType=VARCHAR},
+      visit_page = #{visitPage,jdbcType=VARCHAR},
+      visit_page_desc = #{visitPageDesc,jdbcType=VARCHAR},
+      visit_source = #{visitSource,jdbcType=VARCHAR},
+      visit_time = #{visitTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

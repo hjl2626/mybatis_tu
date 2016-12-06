@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.model.dao.BasketMapper">
+  <resultMap id="BaseResultMap" type="com.java.model.domain.Basket">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="item_id" jdbcType="BIGINT" property="itemId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="item_sku_id" jdbcType="BIGINT" property="itemSkuId" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="append_date" jdbcType="BIGINT" property="appendDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, item_id, user_id, item_sku_id, item_name, `count`, price, append_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_basket
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_basket
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.java.model.domain.Basket">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_basket (id, item_id, user_id, 
+      item_sku_id, item_name, `count`, 
+      price, append_date)
+    values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{itemSkuId,jdbcType=BIGINT}, #{itemName,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER}, #{appendDate,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.java.model.domain.Basket">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_basket
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      id,
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="itemSkuId != null">
+        item_sku_id,
+      </if>
+      <if test="itemName != null">
+        item_name,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="appendDate != null">
+        append_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=BIGINT},
+      <if test="itemId != null">
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="itemSkuId != null">
+        #{itemSkuId,jdbcType=BIGINT},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="appendDate != null">
+        #{appendDate,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.java.model.domain.Basket">
+    update t_basket
+    <set>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="itemSkuId != null">
+        item_sku_id = #{itemSkuId,jdbcType=BIGINT},
+      </if>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="appendDate != null">
+        append_date = #{appendDate,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.java.model.domain.Basket">
+    update t_basket
+    set item_id = #{itemId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      item_sku_id = #{itemSkuId,jdbcType=BIGINT},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      `count` = #{count,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
+      append_date = #{appendDate,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
